@@ -1,0 +1,27 @@
+{
+  "name": "mud",
+  "private": true,
+  "description": "脚手架工具",
+  "license": "LGPL-3.0-or-later",
+  "author": "暮冬拾柒",
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "lint": "turbo lint",
+    "set:add": "changeset add",
+    "set:exit": "changeset pre exit",
+    "set:pre": "changeset pre enter beta",
+    "set:publish": "pnpm run build && changeset publish",
+    "set:version": "changeset version"
+  },
+  "prettier": "@mudong17/prettier/base",
+  "devDependencies": {
+    "@changesets/cli": "^2.27.7",
+    "@mudong17/prettier": "^0.0.1",
+    "@mudong17/tsconfig": "^0.0.1",
+    "turbo": "^2.0.13",
+    "typescript": "^5.5.4",
+    "unbuild": "^2.0.0"
+  }
+}
