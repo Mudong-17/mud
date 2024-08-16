@@ -23,5 +23,6 @@
     "turbo": "^2.0.13",
     "typescript": "^5.5.4",
     "unbuild": "^2.0.0"
-  }
+  },
+  "packageManager": "pnpm@9.7.1"
 }

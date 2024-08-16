@@ -24,7 +24,7 @@ export const create = async (name: string | undefined) => {
   const template = variant || framework;
 
   // 获取模板目录
-  const templateDir = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '../../templates', `${template}`);
+  const templateDir = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '../templates', `${template}`);
   progress.completeTask();
 
   // 读取模板目录下的文件
