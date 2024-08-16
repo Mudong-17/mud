@@ -78,7 +78,10 @@ export class CreateInteractive {
   }
 
   public async execute() {
-    if (!this.config.projectName) {
+    if (!this.config.projectName || !checkFileExist(this.config.projectName)) {
+      if (!checkFileExist(this.config.projectName)) {
+        console.log('The project already exists, please re-enter the project name(项目已存在，请重新输入项目名称)');
+      }
       this.config.projectName = await this.inputProjectName();
     }
     const projectType = await this.selectProjectType();
