@@ -1,0 +1,14 @@
+{
+  "name": "cli-templates",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "build": "bun run ./scripts/copy.ts"
+  },
+  "prettier": "@mudong17/prettier/base",
+  "devDependencies": {
+    "@types/fs-extra": "^11.0.4",
+    "@types/node": "^22.3.0",
+    "fs-extra": "^11.2.0"
+  }
+}

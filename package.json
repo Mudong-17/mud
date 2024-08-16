@@ -6,6 +6,7 @@
   "author": "暮冬拾柒",
   "scripts": {
     "build": "turbo build",
+    "build:template": "turbo build --filter=cli-templates",
     "dev": "turbo dev",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "lint": "turbo lint",
