@@ -1,0 +1,9 @@
+{
+  "extends": "@mudong17/tsconfig/base/tsconfig.json",
+  "compilerOptions": {
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
+    "allowImportingTsExtensions": true,
+  },
+  "include": ["src", "vite.config.ts", "./*.d.ts"],
+}

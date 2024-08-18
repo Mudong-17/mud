@@ -25,7 +25,7 @@ export class CreateInteractive {
     return await input({
       message: 'Project name(项目名称):',
       default: 'my-project',
-      validate: (input) => {
+      validate: (input: string) => {
         if (!checkFileExist(input)) {
           return 'The project already exists, please re-enter the project name(项目已存在，请重新输入项目名称)';
         }
@@ -37,7 +37,7 @@ export class CreateInteractive {
   private async selectProjectType() {
     return await select({
       message: 'Select a projectType(请选择项目类型):',
-      choices: Project.map((type) => ({
+      choices: Project.filter((item) => !item.disabled).map((type) => ({
         name: type.color(type.name),
         value: type,
       })),
@@ -48,10 +48,12 @@ export class CreateInteractive {
     if (!framework) return null;
     return await select({
       message: 'Select a framework(请选择框架):',
-      choices: framework.map((type) => ({
-        name: type.color(type.name),
-        value: type,
-      })),
+      choices: framework
+        .filter((item) => !item.disabled)
+        .map((type) => ({
+          name: type.color(type.name),
+          value: type,
+        })),
     });
   }
 
@@ -59,10 +61,12 @@ export class CreateInteractive {
     if (!variant) return null;
     return await select({
       message: 'Select a variant(请选择变体):',
-      choices: variant.map((type) => ({
-        name: type.color(type.name),
-        value: type,
-      })),
+      choices: variant
+        .filter((item) => !item.disabled)
+        .map((type) => ({
+          name: type.color(type.name),
+          value: type,
+        })),
     });
   }
 
@@ -70,10 +74,12 @@ export class CreateInteractive {
     if (!dependencies) return null;
     return await checkbox({
       message: 'Select dependencies(请选择依赖):',
-      choices: dependencies.map((type) => ({
-        name: type.color(type.name),
-        value: type,
-      })),
+      choices: dependencies
+        .filter((item) => !item.disabled)
+        .map((type) => ({
+          name: type.color(type.name),
+          value: type,
+        })),
     });
   }
 
@@ -84,16 +90,22 @@ export class CreateInteractive {
       }
       this.config.projectName = await this.inputProjectName();
     }
+
+    let framework = null;
+    let variant = null;
+    let dependencies = null;
+
     const projectType = await this.selectProjectType();
-    const framework = await this.selectFramework(projectType?.framework);
-    const variant = await this.selectVariant(framework?.variant);
-    const dependencies = await this.selectDependencies(variant?.dependencies);
+    if (projectType?.framework) framework = await this.selectFramework(projectType?.framework);
+    if (framework?.variant && framework.variant.length > 0) variant = await this.selectVariant(framework?.variant);
+    if (variant?.dependencies && variant.dependencies.length > 0)
+      dependencies = await this.selectDependencies(variant?.dependencies);
 
     Object.assign(this.config, {
       projectType: projectType.value,
       framework: framework?.value,
       variant: variant?.value,
-      dependencies: dependencies?.map((item) => item.value),
+      dependencies: dependencies?.map((item: Dependencie) => item.value),
     });
 
     return this.config;

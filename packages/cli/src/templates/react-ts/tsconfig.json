@@ -1,4 +1,8 @@
 {
   "extends": "@mudong17/tsconfig/base/tsconfig.json",
-  "include": ["src"]
+  "include": ["src"],
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "allowImportingTsExtensions": true
+  }
 }
