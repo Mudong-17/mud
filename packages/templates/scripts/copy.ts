@@ -53,7 +53,7 @@ const copyWithRename = async ({ sourceDir, targetDir }: CopyOptions) => {
 
 // 配置源目录和目标目录
 const sourceDir = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '../src');
-const targetDir = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '../../cli/src/templates');
+const targetDir = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '../../cli/templates');
 
 // 执行复制操作
 copyWithRename({ sourceDir, targetDir });

@@ -1,5 +1,11 @@
 # @mudong17/mud
 
+## 0.0.3
+
+### Patch Changes
+
+- fix(mud): :bug: 修复模板路径问题
+
 ## 0.0.2
 
 ### Patch Changes
