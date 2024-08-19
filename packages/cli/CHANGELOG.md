@@ -1,5 +1,27 @@
 # @mudong17/mud
 
+## 0.0.6
+
+### Patch Changes
+
+- perf(mud): :zap: 优化newtork
+- fix(mud): :bug: 修复windows环境问题
+- fix(mud): :bug: 修复package type
+- fix(mud): :bug: 修复windows环境问题
+
+## 0.0.6-beta.1
+
+### Patch Changes
+
+- fix(mud): :bug: 修复package type
+
+## 0.0.6-beta.0
+
+### Patch Changes
+
+- fix(mud): :bug: 修复windows环境问题
+- fix(mud): :bug: 修复windows环境问题
+
 ## 0.0.5
 
 ### Patch Changes

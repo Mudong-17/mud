@@ -12,7 +12,7 @@ export const create = async (name: string | undefined) => {
 
   const { projectName, framework, variant, dependencies, networkVersion } = projectConfig;
 
-  const totalSteps = 0 + (dependencies?.length ?? 0);
+  const totalSteps = 3 + (dependencies?.length ?? 0);
 
   const progressBar = new ProgressBar(totalSteps, {
     eta: true,

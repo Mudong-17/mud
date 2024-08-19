@@ -120,11 +120,9 @@ export class CreateInteractive {
     const projectType = await this.selectProjectType();
     if (projectType?.framework) framework = await this.selectFramework(projectType?.framework);
     if (framework?.variant && framework.variant.length > 0) variant = await this.selectVariant(framework?.variant);
-    if (variant?.dependencies && variant.dependencies.length > 0) {
+    if (variant?.dependencies && variant.dependencies.length > 0)
       dependencies = await this.selectDependencies(variant?.dependencies);
-      networkVersion = await this.selectDependencyVersion();
-    }
-
+    if (dependencies && dependencies.length > 0) networkVersion = await this.selectDependencyVersion();
     Object.assign(this.config, {
       projectType: projectType.value,
       framework: framework?.value,
