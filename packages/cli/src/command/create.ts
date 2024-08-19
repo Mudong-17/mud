@@ -2,30 +2,34 @@ import fs from 'fs';
 import path from 'path';
 import url from 'url';
 import { CreateInteractive } from '../interactive';
-import { ProgressBar } from '../utils';
+import { getNpmLatestVersion, ProgressBar } from '../utils';
 
 export const create = async (name: string | undefined) => {
   const createFlow = new CreateInteractive(name);
   const projectConfig = await createFlow.execute();
   console.log();
-  const progress = new ProgressBar(5);
   const cwd = process.cwd();
 
-  const { projectName, framework, variant, dependencies } = projectConfig;
+  const { projectName, framework, variant, dependencies, networkVersion } = projectConfig;
+
+  const totalSteps = 0 + (dependencies?.length ?? 0);
+
+  const progressBar = new ProgressBar(totalSteps, {
+    eta: true,
+    format: '{bar} | {percentage}% | {value}/{total}',
+  });
 
   // 项目根目录
   const root = path.join(cwd, projectName);
 
   // 创建项目根目录
   fs.mkdirSync(root);
-  progress.completeTask();
 
   // 获取选择的模板
   const template = variant || framework;
 
   // 获取模板目录
   const templateDir = path.resolve(path.dirname(url.fileURLToPath(import.meta.url)), '../templates', `${template}`);
-  progress.completeTask();
 
   // 读取模板目录下的文件
   const files = fs.readdirSync(templateDir);
@@ -34,6 +38,8 @@ export const create = async (name: string | undefined) => {
   const renameFiles: Record<string, string | undefined> = {
     _gitignore: '.gitignore',
   };
+
+  progressBar.completeTask();
 
   // 复制文件夹
   const copyDir = (srcDir: string, destDir: string) => {
@@ -68,7 +74,9 @@ export const create = async (name: string | undefined) => {
   for (const file of files.filter((f) => f !== 'package.json')) {
     write(file);
   }
-  progress.completeTask();
+
+  progressBar.completeTask();
+
   // 读取 package.json
   const pkg = JSON.parse(fs.readFileSync(path.join(templateDir, `package.json`), 'utf-8'));
 
@@ -76,19 +84,30 @@ export const create = async (name: string | undefined) => {
   pkg.name = projectName;
 
   // 添加依赖
-  pkg.dependencies = dependencies?.reduce((acc, cur) => {
-    return {
-      ...acc,
-      ...{
-        [cur]: 'latest',
-      },
-    };
-  }, pkg.dependencies);
-  progress.completeTask();
+  if (dependencies) {
+    for (const dependency of dependencies) {
+      const others = dependency.other.reduce(
+        (acc, item) => ({
+          ...acc,
+          [item]: networkVersion ? getNpmLatestVersion(item) : 'latest',
+        }),
+        {},
+      );
+      pkg.dependencies = {
+        ...pkg.dependencies,
+        [dependency.value]: networkVersion ? getNpmLatestVersion(dependency.value) : 'latest',
+        ...others,
+      };
+      progressBar.completeTask();
+    }
+  }
+
   // 6.写入 package.json
   write('package.json', JSON.stringify(pkg, null, 2) + '\n');
 
-  progress.completeTask();
+  progressBar.completeTask();
+
+  console.log();
   console.log(`\nDone. Now run:\n`);
 
   const cdProjectName = path.relative(cwd, root);

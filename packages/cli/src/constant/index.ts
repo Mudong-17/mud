@@ -1,5 +1,6 @@
-import { cyan, green, yellow } from 'kolorist';
+import { cyan, green, red, yellow } from 'kolorist';
 import { Front } from './front';
+import { ProjectType } from './interface';
 
 export const Project: ProjectType[] = [
   {
@@ -23,7 +24,7 @@ export const Project: ProjectType[] = [
   {
     name: 'Package(包)',
     value: 'package',
-    color: green,
+    color: red,
     disabled: true,
   },
 ];

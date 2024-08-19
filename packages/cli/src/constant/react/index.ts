@@ -1,4 +1,5 @@
 import { cyan } from 'kolorist';
+import { Framework } from '../interface';
 import { variant } from './variant';
 
 export const React: Framework = {

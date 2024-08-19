@@ -1,5 +1,17 @@
 # @mudong17/mud
 
+## 0.0.5
+
+### Patch Changes
+
+- perf(mud): :zap: 可选依赖版本和进度条的展示
+
+## 0.0.4
+
+### Patch Changes
+
+- feat(mud): :sparkles: 获取依赖版本
+
 ## 0.0.3
 
 ### Patch Changes

@@ -8,7 +8,11 @@ program
   .command('create [projectName]')
   .description('Create a new project(新建一个项目)')
   .action(async (projectName) => {
-    create(projectName);
+    try {
+      await create(projectName);
+    } catch (error) {
+      console.error('Failed to create project(创建项目失败)');
+    }
   });
 
 program.parse(process.argv);

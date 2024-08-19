@@ -1,19 +1,25 @@
-interface Dependencie {
+import { Separator } from '@inquirer/prompts';
+
+export type Choice = Separator | Dependency;
+
+export interface Dependency {
+  type: 'dependency';
   name: string;
   value: string;
   color: (text: string) => string;
   disabled?: boolean;
+  other?: string[];
 }
 
-interface Variant {
+export interface Variant {
   name: string;
   value: string;
   color: (text: string) => string;
   disabled?: boolean;
-  dependencies?: Dependencie[];
+  dependencies?: Choice[];
 }
 
-interface Framework {
+export interface Framework {
   name: string;
   value: string;
   color: (text: string) => string;
@@ -21,7 +27,7 @@ interface Framework {
   variant?: Variant[];
 }
 
-interface ProjectType {
+export interface ProjectType {
   name: string;
   value: string;
   color: (text: string) => string;

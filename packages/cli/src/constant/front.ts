@@ -1,3 +1,4 @@
+import { Framework } from './interface';
 import { React } from './react';
 import { Vue } from './vue';
 
